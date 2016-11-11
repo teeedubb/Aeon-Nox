@@ -185,6 +185,18 @@
 				<onclick>ActivateWindow(favourites)</onclick>
 				<label>1036</label>
 			</control>
+			<control type="button" id="999">
+				<description>View Artwork</description>
+				<width>510</width>
+				<height>60</height>
+				<textwidth>435</textwidth>
+				<textoffsetx>45</textoffsetx>
+				<texturefocus border="35,2,35,2">button_shutdown_focus.png</texturefocus>
+				<texturenofocus border="35,2,35,2">button_shutdown_nofocus.png</texturenofocus>
+				<onclick>Dialog.Close(all,true)</onclick>
+				<onclick>ActivateWindow(Home)</onclick>
+				<label>View Artwork</label>
+			</control>
 			<control type="image" id="16">
 				<description>background image</description>
 				<width>510</width>
