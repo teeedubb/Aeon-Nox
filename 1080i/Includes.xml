@@ -24,6 +24,7 @@
 	<include file="View_502_Episode.xml" />
 	<include file="View_503_Wall.xml" />
 	<include file="View_510_BigList.xml" />
+	<include file="View_521_LowList_HL.xml" />
 	<include file="variables.xml" />
 	<include file="script-skinshortcuts-includes.xml" />
 	<constant name="FanartCrossfadeTime">500</constant>
@@ -328,6 +329,7 @@
 	<!-- Navigation Bar -->
 	<include name="Topbar">
 		<control type="group">
+			<visible>![SubString(Container.FolderPath,plugin.hyper.launcher)]</visible>
 			<animation effect="slide" start="0,0" end="0,-90" time="800" tween="cubic" condition="Control.IsVisible(503) + System.IdleTime(2)">Conditional</animation>
 			<animation effect="slide" start="0,-90" end="0,0" delay="800" time="480" condition="Window.Previous(home)">WindowOpen</animation>
 			<animation effect="slide" end="0,-90" start="0,0" time="480" condition="Window.Next(home)">WindowClose</animation>
@@ -586,6 +588,82 @@
 				</focusedlayout>
 				<content>plugin://plugin.program.autocompletion?info=autocomplete&amp;&amp;id=$INFO[Control.GetLabel(312).index(1)]&amp;&amp;limit=8</content>
 			</control>
+		</control>
+	</include>
+	<include name="ExtendedInfoMovieLists">
+		<control type="panel" id="90011">
+			<description>Similar movies</description>
+			<include content="ExtendedInfoListLayout">
+				<param name="label2" value="$INFO[ListItem.Year]" />
+				<param name="listVisible" value="!String.IsEqual(Window(Home).Property(SimilarMovies.Count),0)" />
+			</include>
+			<content>plugin://script.extendedinfo?info=similarmovies&amp;&amp;imdb_id=$INFO[ListItem.IMDBNumber]&amp;&amp;dbid=$INFO[ListItem.DBID]</content>
+		</control>
+		<control type="panel" id="90012">
+			<description>Movies from director</description>
+			<include content="ExtendedInfoListLayout">
+				<param name="label2" value="$INFO[ListItem.Year]" />
+				<param name="listVisible" value="!String.IsEqual(Window(Home).Property(DirectorMovies.Count),0)" />
+			</include>
+			<content target="video">plugin://script.extendedinfo?info=personmovies&amp;&amp;person=$INFO[ListItem.Director]</content>
+		</control>
+		<control type="panel" id="90013">
+			<description>Movies from writers</description>
+			<include content="ExtendedInfoListLayout">
+				<param name="label2" value="$INFO[ListItem.Year]" />
+				<param name="listVisible" value="!String.IsEqual(Window(Home).Property(WriterMovies.Count),0)" />
+			</include>
+			<content target="video">plugin://script.extendedinfo?info=personmovies&amp;&amp;person=$INFO[ListItem.Writer]</content>
+		</control>
+		<control type="panel" id="90014">
+			<description>Movies from studio</description>
+			<include content="ExtendedInfoListLayout">
+				<param name="label2" value="$INFO[ListItem.Year]" />
+				<param name="listVisible" value="!String.IsEqual(Window(Home).Property(StudioInfo.Count),0)" />
+			</include>
+			<content target="video">plugin://script.extendedinfo?info=studio&amp;&amp;studio=$INFO[ListItem.Studio]</content>
+		</control>
+	</include>
+	<include name="ExtendedInfoSeriesLists">
+		<control type="panel" id="90015">
+			<description>Similar TV Shows</description>
+			<include content="ExtendedInfoListLayout">
+				<param name="label2" value="$INFO[ListItem.Year]" />
+				<param name="listVisible" value="Integer.IsGreater(Container(90015).NumItems,0) | Container(90015).IsUpdating" />
+			</include>
+			<content target="video">plugin://script.extendedinfo?info=similartvshows&amp;&amp;$VAR[SimilarShowsIDVar]</content>
+		</control>
+		<control type="panel" id="90019">
+			<description>Popluar TV Shows</description>
+			<include content="ExtendedInfoListLayout">
+				<param name="label2" value="$INFO[ListItem.Year]" />
+				<param name="listVisible" value="!String.IsEqual(Window(Home).Property(PopularTVShows.Count),0)" />
+			</include>
+			<content target="video">plugin://script.extendedinfo?info=populartvshows</content>
+		</control>
+		<control type="panel" id="90020">
+			<description>Top Rated TV Shows</description>
+			<include content="ExtendedInfoListLayout">
+				<param name="label2" value="$INFO[ListItem.Year]" />
+				<param name="listVisible" value="!String.IsEqual(Window(Home).Property(TopRatedTVShows.Count),0)" />
+			</include>
+			<content target="video">plugin://script.extendedinfo?info=topratedtvshows</content>
+		</control>
+		<control type="panel" id="90021">
+			<description>TV shows airing today</description>
+			<include content="ExtendedInfoListLayout">
+				<param name="label2" value="$INFO[ListItem.Year]" />
+				<param name="listVisible" value="!String.IsEqual(Window(Home).Property(AiringTodayTVShows.Count),0)" />
+			</include>
+			<content target="video">plugin://script.extendedinfo?info=airingtodaytvshows</content>
+		</control>
+		<control type="panel" id="90022">
+			<description>On-the-air TV shows</description>
+			<include content="ExtendedInfoListLayout">
+				<param name="label2" value="$INFO[ListItem.Year]" />
+				<param name="listVisible" value="!String.IsEqual(Window(Home).Property(OnAirTVShows.Count),0)" />
+			</include>
+			<content target="video">plugin://script.extendedinfo?info=onairtvshows</content>
 		</control>
 	</include>
 	<include name="ExtendedInfoListLayout">

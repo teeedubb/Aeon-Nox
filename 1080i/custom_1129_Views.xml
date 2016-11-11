@@ -75,6 +75,11 @@
 					<visible>Container.Content(movies) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(episodes)</visible>
 				</item>
 				<item>
+					<label>LowList-HL</label>
+					<onclick>Container.SetViewMode(521)</onclick>
+					<visible>[SubString(Container.FolderPath,plugin.hyper.launcher)]</visible>
+				</item>
+				<item>
 					<label>LowList</label>
 					<onclick>Container.SetViewMode(501)</onclick>
 					<visible>Container.Content(albums) | Container.Content(artists) | Container.Content(songs)</visible>

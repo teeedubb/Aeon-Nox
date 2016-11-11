@@ -65,7 +65,7 @@
 						<textcolor>labelheader</textcolor>
 						<scroll>true</scroll>
 						<label>$INFO[ListItem.Tagline]</label>
-						<visible>!String.IsEmpty(ListItem.Tagline)</visible>
+						<visible>!String.IsEmpty(ListItem.Tagline) | ![SubString(Container.FolderPath,plugin.hyper.launcher)]</visible>
 					</control>
 					<control type="label">
 						<width>1100</width>
@@ -74,7 +74,7 @@
 						<textcolor>labelheader</textcolor>
 						<scroll>true</scroll>
 						<label>$INFO[Window(Home).Property(NextAired.Status)]</label>
-						<visible>String.IsEqual(ListItem.DBType,tvshow) + !String.IsEmpty(Window(Home).Property(NextAired.Status))</visible>
+						<visible>String.IsEqual(ListItem.DBType,tvshow) + !String.IsEmpty(Window(Home).Property(NextAired.Status)) | ![SubString(Container.FolderPath,plugin.hyper.launcher)]</visible>
 					</control>
 					<control type="label">
 						<width>1100</width>
@@ -83,7 +83,7 @@
 						<textcolor>labelheader</textcolor>
 						<scroll>true</scroll>
 						<label>$INFO[ListItem.TvShowTitle]</label>
-						<visible>String.IsEqual(ListItem.DBType,episode) + !String.IsEmpty(ListItem.TvShowTitle)</visible>
+						<visible>String.IsEqual(ListItem.DBType,episode) + !String.IsEmpty(ListItem.TvShowTitle) | ![SubString(Container.FolderPath,plugin.hyper.launcher)]</visible>
 					</control>
 					<control type="label">
 						<width>1100</width>
@@ -92,7 +92,7 @@
 						<textcolor>labelheader</textcolor>
 						<scroll>true</scroll>
 						<label>$INFO[ListItem.Artist]</label>
-						<visible>String.IsEqual(ListItem.DBType,musicvideo) + !String.IsEmpty(ListItem.Artist)</visible>
+						<visible>String.IsEqual(ListItem.DBType,musicvideo) + !String.IsEmpty(ListItem.Artist) | ![SubString(Container.FolderPath,plugin.hyper.launcher)]</visible>
 					</control>
 				</control>
 				<control type="image">
@@ -121,9 +121,10 @@
 						<label>$VAR[EpisodeCountVar]</label>
 						<font>font35_title_bold</font>
 						<textcolor>grey</textcolor>
-						<visible>String.IsEqual(ListItem.DBType,episode)</visible>
+						<visible>String.IsEqual(ListItem.DBType,episode) | ![SubString(Container.FolderPath,plugin.hyper.launcher)]</visible>
 					</control>
 					<control type="image">
+						<visible>[SubString(Container.FolderPath,plugin.hyper.launcher)]</visible>
 						<width>2</width>
 						<height>90</height>
 						<texture border="1">separator3.png</texture>
@@ -148,6 +149,61 @@
 							<visible>String.IsEmpty(Control.GetLabel(800011))</visible>
 						</control>
 					</control>
+					<control type="group">
+						<visible>[SubString(Container.FolderPath,plugin.hyper.launcher)]</visible>
+						<width>198</width>
+						<control type="image">
+							<width>2</width>
+							<height>90</height>
+							<texture border="1">separator3.png</texture>
+						</control>
+						<control type="image" id="800012">
+							<colordiffuse>$VAR[StudioFlagColorVar]</colordiffuse>
+							<width>198</width>
+							<include>MediaFlagVars</include>
+							<bordersize>2</bordersize>
+							<texture>$VAR[StudioFlagPathVar]$INFO[ListItem.Director,,.png]</texture>
+						</control>
+						<control type="label">
+							<left>0</left>
+							<width>198</width>
+							<height>90</height>
+							<align>center</align>
+							<label>$INFO[ListItem.Director]</label>
+							<font>font10</font>
+							<textcolor>grey</textcolor>
+							<wrapmultiline>true</wrapmultiline>
+							<visible>String.IsEmpty(Control.GetLabel(800012))</visible>
+						</control>
+					</control>					
+					<control type="group">
+						<visible>[SubString(Container.FolderPath,plugin.hyper.launcher)]</visible>
+						<width>198</width>
+						<control type="image">
+							<width>2</width>
+							<height>90</height>
+							<texture border="1">separator3.png</texture>
+						</control>
+						<control type="image" id="800013">
+							<colordiffuse>$VAR[StudioFlagColorVar]</colordiffuse>
+							<width>198</width>
+							<include>MediaFlagVars</include>
+							<bordersize>2</bordersize>
+							<texture>$INFO[ListItem.Writer,flags/players/,.png]</texture>
+						</control>
+						<control type="label">
+							<left>0</left>
+							<width>198</width>
+							<height>90</height>
+							<align>center</align>
+							<label>$INFO[ListItem.Writer]</label>
+							<font>font10</font>
+							<textcolor>grey</textcolor>
+							<wrapmultiline>true</wrapmultiline>
+							<visible>true</visible>
+						</control>
+					</control>
+
 					<control type="image">
 						<width>2</width>
 						<height>90</height>
@@ -167,7 +223,7 @@
 					</control>
 					<control type="group">
 						<width>160</width>
-						<visible>![String.IsEqual(ListItem.DBType,tvshow) + Skin.HasSetting(Disable.NextAired)]</visible>
+						<visible>!String.IsEqual(ListItem.DBType,tvshow) + !Skin.HasSetting(Disable.NextAired) + ![SubString(Container.FolderPath,plugin.hyper.launcher)]</visible>
 						<control type="label">
 							<top>2</top>
 							<width>160</width>
@@ -186,11 +242,11 @@
 							<font>font12</font>
 							<textcolor>grey</textcolor>
 						</control>
-					</control>
-					<control type="image">
-						<width>2</width>
-						<height>90</height>
-						<texture border="1">separator3.png</texture>
+						<control type="image">
+							<width>2</width>
+							<height>90</height>
+							<texture border="1">separator3.png</texture>
+						</control>
 					</control>
 					<control type="group">
 						<visible>!String.IsEmpty(ListItem.Rating)</visible>
@@ -205,11 +261,22 @@
 							<textcolor>grey</textcolor>
 						</control>
 						<control type="label">
+							<visible>![SubString(Container.FolderPath,plugin.hyper.launcher)]</visible>
 							<top>52</top>
 							<width>200</width>
 							<height>30</height>
 							<align>center</align>
 							<label>[LOWERCASE]$VAR[RatingAndVotesVar][/LOWERCASE]</label>
+							<font>font12</font>
+							<textcolor>grey</textcolor>
+						</control>
+						<control type="label">
+							<visible>[SubString(Container.FolderPath,plugin.hyper.launcher)]</visible>
+							<top>52</top>
+							<width>200</width>
+							<height>30</height>
+							<align>center</align>
+							<label>[LOWERCASE]rating[/LOWERCASE]</label>
 							<font>font12</font>
 							<textcolor>grey</textcolor>
 						</control>
@@ -368,21 +435,34 @@
 							<visible>!String.IsEmpty(ListItem.OriginalTitle) + !String.IsEqual(ListItem.OriginalTitle,ListItem.Title)</visible>
 						</item>
 						<item>
+							<label>$INFO[ListItem.Studio]</label>
+							<label2>Studio:</label2>
+							<onclick>noop</onclick>
+							<visible>!String.IsEmpty(ListItem.Studio) + [SubString(Container.FolderPath,plugin.hyper.launcher)]</visible>
+						</item>
+						<item>
 							<label>$INFO[ListItem.Director]</label>
 							<label2>$LOCALIZE[20339]:</label2>
 							<onclick condition="System.HasAddon(script.extendedinfo)">SetProperty(DirectorID,True)</onclick>
 							<onclick condition="System.HasAddon(script.extendedinfo)">SetProperty(ActorName,$INFO[ListItem.Director])</onclick>
 							<onclick condition="System.HasAddon(script.extendedinfo)">ActivateWindow(1130)</onclick>
 							<onclick condition="!System.HasAddon(script.extendedinfo)">SendClick(2003,13)</onclick>
-							<visible>!String.IsEmpty(ListItem.Director)</visible>
+							<visible>![String.IsEmpty(ListItem.Director) | SubString(Container.FolderPath,plugin.hyper.launcher)]</visible>
 						</item>
+						<item>
+							<label>$INFO[ListItem.Director]</label>
+							<label2>Publisher:</label2>
+							<onclick>noop</onclick>
+							<visible>[SubString(Container.FolderPath,plugin.hyper.launcher)]</visible>
+						</item>
+
 						<item>
 							<label>$INFO[ListItem.Writer]</label>
 							<label2>$LOCALIZE[20417]:</label2>
 							<onclick>SetProperty(TextViewerHeader,$LOCALIZE[20417],Home)</onclick>
 							<onclick>SetProperty(TextViewerContent,$ESCINFO[ListItem.Writer],Home)</onclick>
 							<onclick>ActivateWindow(1132)</onclick>
-							<visible>!String.IsEmpty(ListItem.Writer)</visible>
+							<visible>![String.IsEmpty(ListItem.Writer) | SubString(Container.FolderPath,plugin.hyper.launcher)]</visible>
 						</item>
 						<item>
 							<label>$INFO[Window(Home).Property(NextAired.NextNumber),, - ]$INFO[Window(Home).Property(NextAired.NextTitle)]</label>
@@ -414,7 +494,13 @@
 							<onclick>SetProperty(TextViewerHeader,$LOCALIZE[515],Home)</onclick>
 							<onclick>SetProperty(TextViewerContent,$ESCINFO[ListItem.Genre],Home)</onclick>
 							<onclick>ActivateWindow(1132)</onclick>
-							<visible>!String.IsEmpty(ListItem.Genre)</visible>
+							<visible>![String.IsEmpty(ListItem.Genre) | SubString(Container.FolderPath,plugin.hyper.launcher)]</visible>
+						</item>
+						<item>
+							<label>$INFO[ListItem.Genre]</label>
+							<label2>$LOCALIZE[515]:</label2>
+							<onclick>noop</onclick>
+							<visible>String.IsEmpty(ListItem.Genre) | SubString(Container.FolderPath,plugin.hyper.launcher)</visible>
 						</item>
 						<item>
 							<label>$INFO[ListItem.Premiered]</label>
@@ -453,6 +539,7 @@
 							<label2>$LOCALIZE[573]:</label2>
 							<onclick>Dialog.Close(movieinformation)</onclick>
 							<onclick>ActivateWindow(Videos,$INFO[ListItem.Path],return)</onclick>
+							<visible>!SubString(Container.FolderPath,plugin.hyper.launcher)]</visible>
 						</item>
 						<item>
 							<label>$INFO[ListItem.Filename]</label>
@@ -884,6 +971,7 @@
 						<label>38023</label>
 						<altlabel>$LOCALIZE[31147]</altlabel>
 						<usealttexture>!String.IsEmpty(ListItem.UserRating)</usealttexture>
+						<visible>![SubString(Container.FolderPath,plugin.hyper.launcher)]</visible>
 					</control>
 					<control type="image" id="201">
 						<width>2</width>
@@ -895,27 +983,31 @@
 						<include>ButtonInfoDialogsCommonValues</include>
 						<label>13511</label>
 						<enable>!Skin.HasSetting(KioskMode.Enabled)</enable>
+						<visible>![SubString(Container.FolderPath,plugin.hyper.launcher)]</visible>
 					</control>
+					<control type="button" id="999">
+						<description>View Artwork</description>
+						<include>ButtonInfoDialogsCommonValues</include>
+						<label>View Artwork</label>
+						<enable>!Skin.HasSetting(KioskMode.Enabled)</enable>
+						<visible>SubString(Container.FolderPath,plugin.hyper.launcher)</visible>
+						<onclick>Dialog.Close(all,true)</onclick>
+						<onclick>Container.Update($INFO[ListItem.Album])</onclick>
+					</control>
+
 					<control type="image" id="202">
 						<width>2</width>
 						<height>58</height>
 						<texture border="1">separator3.png</texture>
 					</control>
+
 					<control type="button" id="11">
 						<description>Play Trailer</description>
 						<include>ButtonInfoDialogsCommonValues</include>
 						<label>20410</label>
 						<enable>!String.IsEmpty(ListItem.Trailer)</enable>
-						<visible>String.IsEqual(ListItem.DBType,movie)</visible>
-					</control>
-					<control type="button" id="203">
-						<description>Play Trailer</description>
-						<include>ButtonInfoDialogsCommonValues</include>
-						<label />
-						<onclick>noop</onclick>
-						<enable>no</enable>
-						<visible>!String.IsEqual(ListItem.DBType,movie)</visible>
-					</control>
+						<visible>[SubString(Container.FolderPath,plugin.hyper.launcher)]</visible>
+					</control>					
 					<control type="image" id="205">
 						<width>2</width>
 						<height>58</height>
@@ -928,11 +1020,13 @@
 						<include>ButtonInfoDialogsCommonValues</include>
 						<label></label>
 						<enable>!Skin.HasSetting(KioskMode.Enabled)</enable>
+						<visible>![SubString(Container.FolderPath,plugin.hyper.launcher)]</visible>
 					</control>
 					<control type="image" id="206">
 						<width>2</width>
 						<height>58</height>
 						<texture border="1">separator3.png</texture>
+						<visible>![SubString(Container.FolderPath,plugin.hyper.launcher)]</visible>
 					</control>
 					<control type="button" id="207">
 						<description>Extras</description>
@@ -942,6 +1036,7 @@
 						<label>+</label>
 						<onclick>ActivateWindow(1119)</onclick>
 						<enable>!Skin.HasSetting(KioskMode.Enabled)</enable>
+						<visible>![SubString(Container.FolderPath,plugin.hyper.launcher)]</visible>
 					</control>
 				</control>
 			</control>

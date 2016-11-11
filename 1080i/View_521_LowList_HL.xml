@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+	<!-- Video LowList HL -->
+	<include name="View_521_LowList_HL">
+		<animation effect="fade" start="100" end="0" time="600" condition="System.IdleTime(15) + Control.IsVisible(521)">Conditional</animation>
+		<control type="group">
+			<visible>Control.IsVisible(521) + !Window.IsActive(addoninformation)</visible>
+			<include>ViewAnimation</include>
+			<control type="image">
+				<top>710</top>
+				<width>100%</width>
+				<height>651</height>
+				<texture border="1,32,1,1">bottombar.png</texture>
+				<animation effect="slide" end="0,-170" time="120"/>
+			</control>
+			<control type="group">
+				<left>5</left>
+				<top>442</top>
+				<control type="image">
+					<width>440</width>
+					<height>640</height>
+					<aspectratio aligny="bottom">keep</aspectratio>
+					<texture background="true">$VAR[PosterVar]</texture>
+					<fadetime>IconCrossfadeTime</fadetime>
+					<bordertexture border="20">thumbs/thumb_shadow.png</bordertexture>
+					<bordersize>20</bordersize>
+				</control>
+			</control>
+			<control type="textbox" id="998">
+				<description>Genre</description>
+				<left>1280</left>
+				<top>733</top>
+				<width>640</width>
+				<height>50</height>
+				<label>[COLOR labelheader]Genre:[/COLOR] $INFO[ListItem.Genre]</label>
+				<font>font13</font>
+				<pagecontrol />
+				<animation effect="fade" start="0" end="100" time="500" tween="sine" easing="inout">VisibleChange</animation>
+				<animation effect="fade" start="100" end="78" time="300" tween="sine" easing="inout" condition="!Control.HasFocus(900171)">Conditional</animation>
+				<visible>!String.IsEmpty(ListItem.Genre)</visible>
+			</control>
+			<control type="textbox" id="999">
+				<description>Plot</description>
+				<left>1280</left>
+				<top>783</top>
+				<width>640</width>
+				<height>210</height>
+				<label>$INFO[ListItem.Plot]</label>
+				<font>font13</font>
+				<pagecontrol />
+				<animation effect="fade" start="0" end="100" time="500" tween="sine" easing="inout">VisibleChange</animation>
+				<animation effect="fade" start="100" end="78" time="300" tween="sine" easing="inout" condition="!Control.HasFocus(900171)">Conditional</animation>
+				<autoscroll time="3000" delay="4000" repeat="5000">Skin.HasSetting(Enable.AutoScroll)</autoscroll>
+				<visible>!String.IsEmpty(ListItem.Plot)</visible>
+			</control>
+			<control type="group">
+				<left>1270</left>
+				<top>1000</top>
+				<width>1840</width>
+				<height>90</height>
+				<control type="image">
+					<left>162.5</left>
+					<width>2</width>
+					<height>90</height>
+					<texture border="1">separator3.png</texture>
+				</control>
+				<control type="image">
+					<left>325</left>
+					<width>2</width>
+					<height>90</height>
+					<texture border="1">separator3.png</texture>
+				</control>
+				<control type="image">
+					<left>487.5</left>
+					<width>2</width>
+					<height>90</height>
+					<texture border="1">separator3.png</texture>
+				</control>
+				<control type="group">
+					<control type="image" id="800011">
+						<left>13.5</left>
+						<height>75</height>
+						<colordiffuse>$VAR[StudioFlagColorVar]</colordiffuse>
+						<include>MediaFlagVars</include>							
+						<texture>$VAR[StudioFlagPathVar]$INFO[ListItem.Studio,,.png]</texture>
+						<include>VisibleFadeAnimation</include>
+						<align>center</align>
+					</control>
+					<control type="label">
+						<left>0</left>
+						<width>163</width>
+						<align>center</align>
+						<label>$INFO[ListItem.Studio]</label>
+						<font>font10</font>
+						<textcolor>grey</textcolor>
+						<wrapmultiline>true</wrapmultiline>
+						<visible>String.IsEmpty(Control.GetLabel(800011))</visible>
+					</control>
+					</control>
+					<control type="group">
+						<control type="image" id="800012">
+							<left>176.5</left>
+							<height>75</height>
+							<colordiffuse>$VAR[StudioFlagColorVar]</colordiffuse>
+							<include>MediaFlagVars</include>
+							<texture>$VAR[StudioFlagPathVar]$INFO[ListItem.Director,,.png]</texture>
+							<include>VisibleFadeAnimation</include>
+							<align>center</align>
+						</control>
+						<control type="label">
+							<left>161.5</left>
+							<width>163</width>
+							<align>center</align>
+							<label>$INFO[ListItem.Director]</label>
+							<font>font10</font>
+							<textcolor>grey</textcolor>
+							<wrapmultiline>true</wrapmultiline>
+							<visible>String.IsEmpty(Control.GetLabel(800012))</visible>
+						</control>
+					</control>
+					<control type="group">
+						<control type="image" id="800013">
+							<left>339</left>
+							<height>75</height>
+							<align>center</align>
+							<colordiffuse>grey</colordiffuse>
+							<include>MediaFlagVars</include>
+							<bordersize>2</bordersize>
+							<texture>$INFO[ListItem.Writer,flags/players/,.png]</texture>
+						</control>
+						<control type="label">
+							<left>324</left>
+							<width>163</width>
+							<align>center</align>
+							<label>$INFO[ListItem.Writer]</label>
+							<font>font10</font>
+							<textcolor>grey</textcolor>
+							<wrapmultiline>true</wrapmultiline>
+							<visible>true</visible>
+						</control>	
+					</control>
+				<control type="image">
+					<left>491</left>
+					<height>75</height>
+					<width>163</width>
+					<align>center</align>
+					<colordiffuse>grey</colordiffuse>
+					<include>MediaFlagVars</include>
+					<texture fallback="flags/mpaa/NR.png">$VAR[RatingFlagVar]</texture>
+					<visible>!String.IsEmpty(ListItem.Mpaa)</visible>
+				</control>
+			</control>
+			<control type="fixedlist" id="521">
+				<focusposition>2</focusposition>
+				<movement>2</movement>
+				<left>450</left>
+				<top>733</top>
+				<width>976</width>
+				<height>347</height>
+				<onleft>SetProperty(MediaMenu,True,home)</onleft>
+				<onleft>SetFocus(9050)</onleft>
+				<onright condition="Control.IsVisible(60)">60</onright>
+				<onright condition="!Control.IsVisible(60)">62</onright>
+				<onup>521</onup>
+				<ondown>521</ondown>
+				<pagecontrol>60</pagecontrol>
+				<viewtype label="LowList-HL">list</viewtype>
+				<visible>Container.Content(movies)</visible>
+				<scrolltime tween="quadratic" easing="out">200</scrolltime>
+				<animation effect="slide" end="0,-170" time="120"/>
+				<itemlayout height="68" width="806" condition="Container.Content(movies)">
+					<control type="image">
+						<top>8</top>
+						<width>806</width>
+						<height>60</height>
+						<texture border="1">separator2.png</texture>
+					</control>
+					<control type="label">
+						<left>15</left>
+						<width>90</width>
+						<height>68</height>
+						<font>font15</font>
+						<textcolor>labelheader</textcolor>
+						<selectedcolor>selected</selectedcolor>
+						<align>left</align>
+						<aligny>center</aligny>
+						<label fallback="• • • •">$INFO[ListItem.Year]</label>
+						<visible>!ListItem.IsParentFolder</visible>
+					</control>
+					<control type="label">
+						<left>110</left>
+						<width>684</width>
+						<height>68</height>
+						<font>font15</font>
+						<textcolor>grey2</textcolor>
+						<selectedcolor>selected</selectedcolor>
+						<label>$INFO[ListItem.Label]</label>
+					</control>
+					<control type="label">
+						<left>110</left>
+						<width>684</width>
+						<height>68</height>
+						<font>font15</font>
+						<align>right</align>
+						<textcolor>grey2</textcolor>
+						<selectedcolor>selected</selectedcolor>
+						<aligny>center</aligny>
+						<label>$INFO[ListItem.Rating]</label>
+						<visible>!Skin.HasSetting(Enable.HideRatings) | String.IsEqual(Container.SortMethod,$LOCALIZE[563])</visible>
+					</control>
+					<control type="image">
+						<visible>false</visible>
+						<left>742</left>
+						<top>2</top>
+						<width>64</width>
+						<height>64</height>
+						<aspectratio>keep</aspectratio>
+						<texture>$VAR[ListItem.Overlay]</texture>
+					</control>
+				</itemlayout>
+				<focusedlayout height="68" width="806" condition="Container.Content(movies)">
+					<control type="image">
+						<top>8</top>
+						<width>806</width>
+						<height>60</height>
+						<texture border="1">separator2.png</texture>
+					</control>
+					<control type="image">
+						<width>806</width>
+						<height>68</height>
+						<texture border="4">listselect_fo.png</texture>
+						<visible>Control.HasFocus(521)</visible>
+						<include>VisibleFadeAnimation</include>
+					</control>
+					<control type="label">
+						<left>15</left>
+						<width>90</width>
+						<height>68</height>
+						<font>font15</font>
+						<selectedcolor>selected</selectedcolor>
+						<align>left</align>
+						<aligny>center</aligny>
+						<label fallback="• • • •">$INFO[ListItem.Year]</label>
+						<animation effect="fade" start="100" end="70" time="300" tween="sine" easing="inout" condition="!Control.HasFocus(521)">Conditional</animation>
+						<visible>!ListItem.IsParentFolder</visible>
+					</control>
+					<control type="label">
+						<left>110</left>
+						<width>684</width>
+						<height>68</height>
+						<font>font15</font>
+						<selectedcolor>selected</selectedcolor>
+						<label>$INFO[ListItem.Label]</label>
+						<animation effect="fade" start="100" end="70" time="300" tween="sine" easing="inout" condition="!Control.HasFocus(521)">Conditional</animation>
+					</control>
+					<control type="label">
+						<left>110</left>
+						<width>684</width>
+						<height>68</height>
+						<font>font15</font>
+						<align>right</align>
+						<selectedcolor>selected</selectedcolor>
+						<aligny>center</aligny>
+						<label>$INFO[ListItem.Rating]</label>
+						<visible>!Skin.HasSetting(Enable.HideRatings) | String.IsEqual(Container.SortMethod,$LOCALIZE[563])</visible>
+						<animation effect="fade" start="100" end="70" time="300" tween="sine" easing="inout" condition="!Control.HasFocus(521)">Conditional</animation>
+					</control>
+					<control type="image">
+						<visible>false</visible>
+						<left>742</left>
+						<top>2</top>
+						<width>64</width>
+						<height>64</height>
+						<aspectratio>keep</aspectratio>
+						<texture>$VAR[ListItem.Overlay]</texture>
+					</control>
+				</focusedlayout>
+			</control>
+			<control type="image">
+				<left>450</left>
+				<top>1040</top>
+				<width>806</width>
+				<height>40</height>
+				<texture flipy="true" border="1">bottom_shadow.png</texture>
+			</control>
+			<control type="scrollbar" id="60">
+				<left>1256</left>
+				<top>734</top>
+				<width>14</width>
+				<height>347</height>
+				<movement>4</movement>
+				<onup>60</onup>
+				<ondown>60</ondown>
+				<onleft>50</onleft>
+				<onright>62</onright>
+				<texturesliderbackground>scrollbar/texturesliderbackground3.png</texturesliderbackground>
+				<texturesliderbar colordiffuse="55ffffff" border="1">scrollbar/texturesliderbar3.png</texturesliderbar>
+				<texturesliderbarfocus border="1">scrollbar/texturesliderbar3.png</texturesliderbarfocus>
+				<showonepage>false</showonepage>
+				<orientation>vertical</orientation>
+				<animation effect="slide" end="0,-170" time="120"/>
+			</control>
+		</control>
+	</include>
+</includes>
